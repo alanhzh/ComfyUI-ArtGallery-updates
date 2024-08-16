@@ -1,6 +1,6 @@
 import os
 
-#uploadimg
+# 修改 JS 文件
 def modify_js_file(file_path, new_content):
     with open(file_path, 'r') as file:
         content = file.read()
@@ -25,37 +25,36 @@ def modify_js_file(file_path, new_content):
 
 # 要插入的新内容
 new_js_content = """
-		}
-		// 检查艺术家图像上传
-		if (nodeData?.input?.required?.image?.[1]?.image_upload_artist === true) {
-			nodeData.input.required.upload = ["ARTISTS_IMAGEUPLOAD"];
-		}
-		// 检查相机图像上传
-		if (nodeData?.input?.required?.image?.[1]?.image_upload_camera === true) {
-			nodeData.input.required.upload = ["CAMERAS_IMAGEUPLOAD"];
-		}
-		// 检查胶片图像上传
-		if (nodeData?.input?.required?.image?.[1]?.image_upload_film === true) {
-			nodeData.input.required.upload = ["FILMS_IMAGEUPLOAD"];
-		}
-		// 检查艺术运动图像上传
-		if (nodeData?.input?.required?.image?.[1]?.image_upload_movement === true) {
-			nodeData.input.required.upload = ["MOVEMENTS_IMAGEUPLOAD"];
-		}
-		// 检查风格图像上传
-		if (nodeData?.input?.required?.image?.[1]?.image_upload_style === true) {
-			nodeData.input.required.upload = ["STYLES_IMAGEUPLOAD"];
-
+            }
+            // ComfyUI-ArtGallery
+			if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload_artist) === true) {
+				nodeData.input.required.upload = ["ARTISTS_IMAGEUPLOAD"];
+			}
+			if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload_camera) === true) {
+				nodeData.input.required.upload = ["CAMERAS_IMAGEUPLOAD"];
+			}
+			if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload_film) === true) {
+				nodeData.input.required.upload = ["FILMS_IMAGEUPLOAD"];
+			}
+			if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload_movement) === true) {
+				nodeData.input.required.upload = ["MOVEMENTS_IMAGEUPLOAD"];
+			}
+			if (((_d = (_c = (_b = (_a = nodeData == null ? void 0 : nodeData.input) == null ? void 0 : _a.required) == null ? void 0 : _b.image) == null ? void 0 : _c[1]) == null ? void 0 : _d.image_upload_style) === true) {
+				nodeData.input.required.upload = ["STYLES_IMAGEUPLOAD"];
 """
 
 # 文件路径
 current_dir = os.path.dirname(os.path.abspath(__file__))
-uploadimg_js_file_path = os.path.join(current_dir, '../../web/extensions/core/uploadImage.js')
+uploadimg_js_file_path = os.path.join(current_dir, '../../web/assets/index-DJRcbqp_.js')
+
+# 打印文件路径（可选）
 print(uploadimg_js_file_path)
 
+# 调用函数修改JS文件
 modify_js_file(uploadimg_js_file_path, new_js_content)
 
 
+################################################################
 #folderpath
 def modify_py_file(file_path, new_content, search_line, function_content, search_function):
     with open(file_path, 'r') as file:
@@ -125,22 +124,23 @@ function_py_content = '''\
 
 py_file_path = os.path.join(current_dir, '../../folder_paths.py')
 
-modify_py_file(py_file_path, new_py_content, 'folder_names_and_paths["classifiers"]', function_py_content, 'def get_directory_by_type(type_name):')
+modify_py_file(py_file_path, new_py_content, 'folder_names_and_paths["classifiers"]', function_py_content, 'def get_directory_by_type(type_name: str) -> str | None:')
 
-
+#################################################
 #wedget
-def modify_wedgets_js_file(file_path, new_content, new_content_2):
-    with open(file_path, 'r') as file:
+def modify_wedgets_js_file(file_path, new_content_1, new_content_2):
+    # 使用 utf-8 编码读取文件
+    with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
     # 检查文件中是否已包含需要添加的内容
     if "ARTISTS_IMAGEUPLOAD" not in content:
         # 找到原始代码的位置
-        insert_position = content.find('return (display==="slider") ? "slider" : "number"')
+        insert_position = content.find('return display === "slider" ? "slider" : "number";')
         if insert_position != -1:
             # 在原始代码后插入新的代码
-            insert_position += len('return (display==="slider") ? "slider" : "number"')
-            content = content[:insert_position] + new_content + content[insert_position:]
+            insert_position += len('return display === "slider" ? "slider" : "number";')
+            content = content[:insert_position] + new_content_1 + content[insert_position:]
 
         insert_position_2 = content.find('return { widget: uploadWidget };')
         if insert_position_2 != -1:
@@ -149,7 +149,7 @@ def modify_wedgets_js_file(file_path, new_content, new_content_2):
             content = content[:insert_position_2] + new_content_2 + content[insert_position_2:]
 
             # 写回文件
-            with open(file_path, 'w') as file:
+            with open(file_path, 'w', encoding='utf-8') as file:
                 file.write(content)
             print(f"File '{file_path}' updated successfully.✅")
         else:
@@ -161,8 +161,15 @@ def modify_wedgets_js_file(file_path, new_content, new_content_2):
 new_wedgets_js_content = """
 }
 
-// 通用的图像上传函数
+//ComfyUI-ArtGallery
 function createImageUploadWidget(node, inputName, inputData, imageType, app) {
+    console.log('createImageUploadWidget called with parameters:', {
+        node,
+        inputName,
+        inputData,
+        imageType,
+        app
+    });
 	const imageWidget = node.widgets.find((w) => w.name === (inputData[1]?.widget ?? "image"));
 	let AuploadWidget;
 
@@ -212,7 +219,6 @@ function createImageUploadWidget(node, inputName, inputData, imageType, app) {
 		}
 	});
 
-	// 添加回调函数以在更改图像时渲染图像
 	const cb = node.callback;
 	imageWidget.callback = function () {
 		showImage(imageWidget.value, imageType);
@@ -221,9 +227,6 @@ function createImageUploadWidget(node, inputName, inputData, imageType, app) {
 		}
 	};
 
-	// 在加载时，如果有值，则渲染图像
-	// 值不会立即设置，因此我们需要等待一会儿
-	// 初始设置值时不会触发更改回调
 	requestAnimationFrame(() => {
 		if (imageWidget.value) {
 			showImage(imageWidget.value, imageType);
@@ -250,8 +253,8 @@ new_wedgets_js_content_2 = """
 		return createImageUploadWidget(node, inputName, inputData, 'styles', app);
 """
 
-# 文件路径
-wedgets_js_file_path = os.path.join(current_dir, '../../web/scripts/widgets.js')
+# PATH
+wedgets_js_file_path = os.path.join(current_dir, '../../web/assets/index-DIiqwEjy.js')
 
 modify_wedgets_js_file(wedgets_js_file_path, new_wedgets_js_content, new_wedgets_js_content_2)
 
