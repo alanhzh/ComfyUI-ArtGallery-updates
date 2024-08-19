@@ -45,7 +45,7 @@ new_js_content = """
 
 # 文件路径
 current_dir = os.path.dirname(os.path.abspath(__file__))
-uploadimg_js_file_path = os.path.join(current_dir, '../../web/assets/index-DJRcbqp_.js')
+uploadimg_js_file_path = os.path.join(current_dir, '../../web/assets/index--0nRVkuV.js')
 
 # 打印文件路径（可选）
 print(uploadimg_js_file_path)
@@ -254,7 +254,7 @@ new_wedgets_js_content_2 = """
 """
 
 # PATH
-wedgets_js_file_path = os.path.join(current_dir, '../../web/assets/index-DIiqwEjy.js')
+wedgets_js_file_path = os.path.join(current_dir, '../../web/assets/index-D8Zp4vRl.js')
 
 modify_wedgets_js_file(wedgets_js_file_path, new_wedgets_js_content, new_wedgets_js_content_2)
 
