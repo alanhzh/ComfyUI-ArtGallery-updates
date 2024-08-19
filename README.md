@@ -1,3 +1,5 @@
+只是更新下，使其能符合最新版本的ComfyUI
+
 <!---
 ![AG项目图](https://github.com/ZHO-ZHO-ZHO/ComfyUI-ArtGallery/assets/140084057/ef8ea90e-16a9-4882-8545-8fbceea39ca6)
 --->
